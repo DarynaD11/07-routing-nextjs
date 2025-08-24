@@ -67,6 +67,9 @@ export default function NotesClient({
       </header>
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
+      {data && !isLoading && data.notes.length === 0 && (
+        <p className={css.emptyMessage}>Not found</p>
+      )}
       {data && !isLoading && <NoteList notes={data.notes} />}
       {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)}>
