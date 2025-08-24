@@ -18,25 +18,28 @@ import { Note } from "@/types/note";
 interface NotesClientProps {
   initialNotes: Note[];
   totalPages: number;
+  currentTag: string;
 }
 
 export default function NotesClient({
   initialNotes,
   totalPages,
+  currentTag,
 }: NotesClientProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [page, setPage] = useState(1);
   const [searchInput, setSearchInput] = useState("");
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["notes", page, searchInput],
+    queryKey: ["notes", page, searchInput, currentTag],
     queryFn: () =>
       fetchNotes({
         page,
-        perPage: 12,
+        perPage: 6,
         search: searchInput,
+        ...(currentTag && currentTag !== "All" ? { tag: currentTag } : {}),
       }),
     initialData:
-      page === 1 && !searchInput
+      page === 1 && !searchInput && currentTag === "All"
         ? { notes: initialNotes, totalPages }
         : undefined,
     placeholderData: keepPreviousData,
