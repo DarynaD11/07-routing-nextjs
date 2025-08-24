@@ -6,9 +6,7 @@ interface NotesPageProps {
 }
 
 export default async function NotesPage({ params }: NotesPageProps) {
-  const { slug } = await params;
-
-  const tag = slug?.[0];
+  const tag = params.slug?.[0];
 
   const data = await fetchNotes({
     page: 1,
