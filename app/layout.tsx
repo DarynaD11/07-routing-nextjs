@@ -33,8 +33,8 @@ export default function RootLayout({
         <Providers>
           <Header />
           <main>
-            {modal}
             {children}
+            {modal}
           </main>
           <div id="modal-root" />
           <Footer />
